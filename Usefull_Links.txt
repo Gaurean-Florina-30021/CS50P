@@ -1,0 +1,14 @@
+Remote -> https://www.youtube.com/watch?v=wqZwQnh6ZtQ
+Raspbery vision -> https://www.youtube.com/watch?v=QV_QmDKx0kQ
+                -> https://www.instructables.com/How-To-Useemulate-remotes-with-Arduino-and-Raspber/
+                -> https://forum.arduino.cc/t/infrared-led-frequencies/516564
+                -> https://www.youtube.com/watch?v=A9lOfVm1A40
+https://www.raspberrypi.com/documentation/computers/raspberry-pi.html
+https://gpiozero.readthedocs.io/en/latest/
+Book : https://raw.githubusercontent.com/raspberrypipress/released-pdfs/main/simple-electronics-with-gpio-zero.pdf
+
+
+To configure the IR Remote I have used this:
+https://asimuzzaman.com/posts/how-to-use-raspberry-pi-as-infrared-ir-remote#hardware-1
+Last step with cp I did it with the location mentioned here => than restart https://raspberrypi.stackexchange.com/questions/67205/lirc-irsend-command-change-config-file
+For Ir library ->  https://drive.google.com/drive/folders/1Y0sOvAmrjruVwpRBNuqJQRR329cviXGV

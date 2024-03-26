@@ -1,0 +1,13 @@
+The code to display something on LCD 16x2.
+
+In order to work it is needed to have the same os as in the IR remote controll.
+What we need to do to make it work:
+1. Install pip(Python Package Info):
+    sudo apt-get install python-pip
+2. Install RPLCD(Raspbery Python Lyquid Cristal Diamond) package
+    sudo pip install RPLCD
+
+To find more about RPLCD please visit:
+https://rplcd.readthedocs.io/en/stable/installation.html
+
+

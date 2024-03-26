@@ -1,0 +1,31 @@
+For this project you will aslo need hardware and software requirements.
+Sofware requirements:
+1. Pytest => pip install pytest
+2. lirc => pip install lirc (ONLY WORK ON RASPBERRY)
+3. LCD => sudo pip install RPLCD (ONLY WORK ON RASPBERRY)
+4. Raspberry gpios -> sudo pip install gpiozero (ONLY WORK ON RASPBERRY)
+
+For more details about full instalation Kit please look in the specified files:
+1. Pytest => no additional commands
+2. lirc => remote_control_info.txt
+3. LCD => LCD_Display.txt
+4. Raspberry gpios => no additional commands
+
+
+
+Hardware requirements:
+1. Raspbery pi 4
+2. LCD 16x2
+3. Water pomp and charger(Be aware to be a charger you will not need anymore
+since we need to cut it in order to connect the ground to pomp and the VCC to the relay)
+4. Relay
+5. 2 x Buttons
+6. Mp3 Car remote controll(or any remote control.
+If you use the one I use u can also use my lirc_configuration neighter than creating a new one)
+7. Analog to digital converter MCP3008
+8. Temperature sensor DS18B20
+9. soil humidity sensor
+10. 2 x potentiometter 50KOhm
+11. IR sensor
+
+Please be aware to read and follow the instructions from all txt file in order to work everething

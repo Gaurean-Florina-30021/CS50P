@@ -1,0 +1,95 @@
+The code for reading the keyboards from the Car mp3 IR(Infra Red) Remote control.
+The code was provided by akkana from github:
+    https://github.com/akkana/scripts/blob/master/rpi/pyirw.py
+For the folowing code to work there might be needed to do some additional steps to configure the remote control used.
+This project may work with other remote controls too but not as expected if the buttons are not the same.
+
+Remote control configuration:
+1. First it is needed to intal the lirc(Linux Infra Red Control) package.
+    This can be done with the following command in the commands window:
+        sudo apt update                             -> Update the system
+        sudo apt install lirc                       -> install lirc package
+        lircd --version                             -> Verify version(lircd 0.10.1)
+        sudo nano /etc/lirc/lirc_options.conf       -> Change lirc options
+
+            Options to change:
+                driver          = default
+                device          = /dev/lirc0
+
+        sudo reboot                                 -> reboot the system
+
+        sudo /etc/init.d/lircd status               -> See the status lirc deaomon
+
+                    ● lircd.service - Flexible IR remote input/output application support
+                    Loaded: loaded (/lib/systemd/system/lircd.service; enabled; vendor preset: enabled)
+                     Active: active (running) since Wed 2023-05-18 14:43:25 +06; 2 days ago
+                    TriggeredBy: ● lircd.socket
+                     Docs: man:lircd(8)
+                    <http://lirc.org/html/configure.html>
+                    Main PID: 520 (lircd)
+                    Tasks: 2 (limit: 779)
+                    CPU: 139ms
+                    CGroup: /system.slice/lircd.service
+                            └─520 /usr/sbin/lircd --nodaemon
+
+        May also see that it's running
+
+
+2. Now we need to configure that the lirc accepts the IR transmission:
+    sudo nano /boot/config.txt                          -> open config.txt
+        Inside we can find 2 lines commented like those:
+            #dtoverlay=gpio-ir,gpio_pin=17
+            #dtoverlay=gpio-ir-tx,gpio_pin=18
+        Uncomment the first one and if the case change the pin from 17 to any pin you want to use(I will use 18)
+        The second line will enable the raspbery to take place of a remote so the commands will be transmitted via code commands. (We do not need it)
+
+    sudo reboot                                         -> reboot system again
+
+    sudo irrecord -d /dev/lirc0 --disable-namespace     ->record the IR signals from our remote(THIS COMMAND MAY NOT WORK. DO NOT WORRY!!!
+                                                                    IT'S NORMAL EIGHTER IT WORK EIGHTER NOT DEPENDING ON THE SYSTEM VERSION)
+
+    sudo mode2 -m -d /dev/lirc0                         -> After this command it should work and wait for you to press keys from the remote.
+
+
+3. In a file save the codes as mentioned in this link: https://asimuzzaman.com/posts/how-to-use-raspberry-pi-as-infrared-ir-remote#hardware-1
+
+4. Write saved data in correct format specified in the same link:
+    sudo nano remot_name.lircd.config               -> create the file where shall be saved the data in the correct format4
+
+5. coppy the configuration to the needed folder:
+    sudo cp TV_REMOTE.lircd.conf /etc/lirc/lircd
+
+6. Reboot and verify if the remote appear:
+     irsend LIST "" ""                              -> will show all available remotes
+     irsend LIST remote_name ""                     -> will show the available keys
+
+7. Test in Visual studio:
+    pip install lirc                                -> install library
+    in terminal write "irw" and press the remotes key see if the keys are detected. Soma key may not be detected.. If so repeat steps 3, 4 and 5 changing in the file only the buttons that does not work.
+
+
+
+
+
+In order to work the lirc package it is needed to have this software(OS) version installed on the raspberry pi4:
+PRETTY_NAME="Raspbian GNU/Linux 10 (buster)"
+NAME="Raspbian GNU/Linux"
+VERSION_ID="10"
+VERSION="10 (buster)"
+VERSION_CODENAME=buster
+ID=raspbian
+ID_LIKE=debian
+HOME_URL="http://www.raspbian.org/"
+SUPPORT_URL="http://www.raspbian.org/RaspbianForums"
+BUG_REPORT_URL="http://www.raspbian.org/RaspbianBugs
+
+Debian version => 10.4
+
+To check them use:
+    cat /etc/debian_version
+    cat /etc/os-release
+
+If you DO NOT USE the specified version it may be required to do some more steps to make lirc package work or the
+lirc package may NOT BE COMPATIBLE and recording keys may need additional code implementation.
+In that case get this as refference to read the keys from the remote:
+https://blog.bschwind.com/2016/05/29/sending-infrared-commands-from-a-raspberry-pi-without-lirc/

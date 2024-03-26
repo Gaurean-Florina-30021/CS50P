@@ -1,0 +1,42 @@
+1.connect sensor onm GPIO4(pin7 on raspberry)
+2. Enable 1 wire communication
+sudo raspi-config
+    go to interfacing options and enable 1-Wire
+    go to finish after eneble-ing it
+
+
+3. Make sure you have the configuration of the sensor
+sudo nano /boot/config.txt
+
+add this if it is not already there:
+dtoverlay=w1-gpio,gpiopin=4
+            if you are having issues with the syntax or at the end it wont work please have a look in this file to see the exactly syntax you need to use:
+            sudo /boot/overlays/README
+4. Restart the device
+sudo reboot
+
+5. Load the w1-gpio kernel module, which is responsible for enabling the GPIO pin for one-wire communication:
+sudo modprobe w1-gpio
+
+6.Load the w1-therm kernel module, which adds support for DS18B20-specific features,
+sudo modprobe w1-therm
+
+7.make sure you are as up as it is possible:
+    cd ..
+
+8. Verify if your device was added:
+cd /sys/bus/w1/devices/
+ls
+
+If this step do not show anything or only show w1-master than please check your device wiring.
+After that repeat steps 5 and 6. Also consider a restart if it is not working!
+Also if nothing works do this:
+lsmod | grep -i w1_
+and
+dmesg | grep w1
+And see if you spot any errors.
+If there are any errors or warnings related to loading the modules or detecting the sensor, they should appear in the output.
+This information can help diagnose the issue and determine the next steps to resolve it.
+After running the command, please review the output and see if there are any relevant messages.
+
+9. Get the one prefixed with 28- and replace it in the temp_reader.py line 12
